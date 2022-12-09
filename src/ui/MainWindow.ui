@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Grayscale Image Manipulator</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../Resource.qrc">
+    <normaloff>:/resources/ninja.png</normaloff>:/resources/ninja.png</iconset>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+   </widget>
+   <widget class="QMenu" name="menuEffects">
+    <property name="title">
+     <string>Effects</string>
+    </property>
+    <addaction name="actionRotate_left"/>
+    <addaction name="actionRotate_right"/>
+    <addaction name="separator"/>
+    <addaction name="actionFlip_horizontally"/>
+    <addaction name="actionFlip_vertically"/>
+    <addaction name="separator"/>
+    <addaction name="actionInvert_pixel_values"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEffects"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="separator"/>
+   <addaction name="actionRotate_left"/>
+   <addaction name="actionRotate_right"/>
+   <addaction name="separator"/>
+   <addaction name="actionFlip_horizontally"/>
+   <addaction name="actionFlip_vertically"/>
+   <addaction name="separator"/>
+   <addaction name="actionInvert_pixel_values"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/resources/icon-folder-open.svg</normaloff>:/resources/icon-folder-open.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Load image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionRotate_left">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/resources/icon-rotate-left.svg</normaloff>:/resources/icon-rotate-left.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate left</string>
+   </property>
+  </action>
+  <action name="actionRotate_right">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/resources/icon-rotate-right.svg</normaloff>:/resources/icon-rotate-right.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate right</string>
+   </property>
+  </action>
+  <action name="actionFlip_horizontally">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/resources/icon-left-right.svg</normaloff>:/resources/icon-left-right.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Flip horizontally</string>
+   </property>
+  </action>
+  <action name="actionFlip_vertically">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/resources/icon-up-down.svg</normaloff>:/resources/icon-up-down.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Flip vertically</string>
+   </property>
+  </action>
+  <action name="actionInvert_pixel_values">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/resources/icon-droplet.svg</normaloff>:/resources/icon-droplet.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Invert pixel values</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../Resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

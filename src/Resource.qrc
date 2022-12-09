@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/icon-droplet.svg</file>
+        <file>resources/icon-folder-open.svg</file>
+        <file>resources/icon-left-right.svg</file>
+        <file>resources/icon-rotate-left.svg</file>
+        <file>resources/icon-rotate-right.svg</file>
+        <file>resources/icon-up-down.svg</file>
+        <file>theme/MailSy.qss</file>
+        <file>resources/ninja.png</file>
+    </qresource>
+</RCC>
