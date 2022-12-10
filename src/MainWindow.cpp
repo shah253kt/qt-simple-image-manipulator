@@ -14,7 +14,8 @@ MainWindow::MainWindow(QWidget* parent)
     centralLayout = new QVBoxLayout(ui->centralwidget);
     centralLayout->addWidget(lblImageContainer);
 
-    QObject::connect(this, &MainWindow::windowResized, this, &MainWindow::resizeImage); // Resize image when window is resized
+    QObject::connect(ui->actionAbout_Qt, &QAction::triggered, this, [this] { QMessageBox::aboutQt(this); }); // Show Qt about dialog
+    QObject::connect(this, &MainWindow::windowResized, this, &MainWindow::refreshImage); // Resize image when window is resized
     QObject::connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::showFileDialog); // Select image
     QObject::connect(ui->actionRotate_left, &QAction::triggered, this, [this] { rotateImage(COUNTERCLOCKWISE); }); // Rotate left
     QObject::connect(ui->actionRotate_right, &QAction::triggered, this, [this] { rotateImage(CLOCKWISE); }); // Rotate right
@@ -35,7 +36,6 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
 void MainWindow::refreshImage()
 {
-    //QPixmap::fromImage(*loadedImage).transformed(QTransform().rotate(rotationAngle), Qt::SmoothTransformation);
     lblImageContainer->setPixmap(QPixmap::fromImage(*loadedImage).transformed(QTransform().rotate(rotationAngle)).scaled(lblImageContainer->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
@@ -47,22 +47,16 @@ void MainWindow::showFileDialog()
     if (fileName.length() > 0)
     {
         loadedImage->load(fileName);
-        refreshImage();
         rotationAngle = 0;
-        resizeImage();
+        flippedHorizontally = false;
+        flippedVerically = false;
+        refreshImage();
     }
-}
-
-void MainWindow::resizeImage()
-{
-    qInfo() << "Window size changed";
-    refreshImage();
 }
 
 void MainWindow::rotateImage(bool clockwise)
 {
     qInfo() << "Rotating image" << (clockwise == CLOCKWISE ? "Clockwise" : "Counter-clockwise");
-    //loadedImage->transformed(QMatrix4x4().rotate(90.0 * clockwise ? 1 : -1, 0, 0, 1));
 
     rotationAngle += 90 * (clockwise ? 1 : -1);
 
@@ -72,22 +66,13 @@ void MainWindow::rotateImage(bool clockwise)
         rotationAngle += 360;
 
     refreshImage();
-    resizeImage();
 }
 
 void MainWindow::flipImage(bool horizontally)
 {
     qInfo() << "Flipping image" << (horizontally ? "horizontally" : "vertically");
-
-    /*QPixmap* source = &lblImageContainer->pixmap();
-    QImage target(QSize(source->width(), source->height()), QImage::Format_ARGB32);
-    QPainter painter(&target);
-    QTransform transf = painter.transform();
-    transf.scale(-1, 1);
-    painter.setTransform(transf);
-    painter.drawPixmap(-source->width(), 0, *source);*/
-
-    loadedImage->invertPixels(QImage::InvertRgba);
+    loadedImage->mirror(horizontally, !horizontally);
+    refreshImage();
 }
 
 void MainWindow::invertImage()

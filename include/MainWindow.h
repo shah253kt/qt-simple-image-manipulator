@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QDebug>
-#include <QMatrix4x4>
+#include <QMessageBox>
 
 #define CLOCKWISE true
 #define COUNTERCLOCKWISE !CLOCKWISE
@@ -29,8 +29,9 @@ private:
     QLabel* lblImageContainer;
     QVBoxLayout* centralLayout;
     qreal rotationAngle;
+    bool flippedHorizontally, flippedVerically;
+
     void resizeEvent(QResizeEvent* event);
-    void refreshImage();
 
 signals:
     void windowResized();
@@ -38,7 +39,7 @@ signals:
 
 public slots:
     void showFileDialog();
-    void resizeImage();
+    void refreshImage();
     void rotateImage(bool clockwise);
     void flipImage(bool horizontally);
     void invertImage();
