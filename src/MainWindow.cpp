@@ -33,6 +33,12 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     emit windowResized();
 }
 
+void MainWindow::refreshImage()
+{
+    //QPixmap::fromImage(*loadedImage).transformed(QTransform().rotate(rotationAngle), Qt::SmoothTransformation);
+    lblImageContainer->setPixmap(QPixmap::fromImage(*loadedImage).transformed(QTransform().rotate(rotationAngle)).scaled(lblImageContainer->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+}
+
 void MainWindow::showFileDialog()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Select Image"), QDir::homePath() + '/' + QStandardPaths::displayName(QStandardPaths::PicturesLocation), tr("Image Files (*.png *.jpg *.bmp)"));
@@ -41,7 +47,7 @@ void MainWindow::showFileDialog()
     if (fileName.length() > 0)
     {
         loadedImage->load(fileName);
-        lblImageContainer->setPixmap(QPixmap::fromImage(*loadedImage));
+        refreshImage();
         rotationAngle = 0;
         resizeImage();
     }
@@ -50,7 +56,7 @@ void MainWindow::showFileDialog()
 void MainWindow::resizeImage()
 {
     qInfo() << "Window size changed";
-    lblImageContainer->setPixmap(QPixmap::fromImage(*loadedImage).transformed(QTransform().rotate(rotationAngle)).scaled(lblImageContainer->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    refreshImage();
 }
 
 void MainWindow::rotateImage(bool clockwise)
@@ -65,7 +71,7 @@ void MainWindow::rotateImage(bool clockwise)
     else if (rotationAngle < 0)
         rotationAngle += 360;
 
-    lblImageContainer->setPixmap(QPixmap::fromImage(*loadedImage).transformed(QTransform().rotate(rotationAngle), Qt::SmoothTransformation));
+    refreshImage();
     resizeImage();
 }
 
@@ -87,5 +93,6 @@ void MainWindow::flipImage(bool horizontally)
 void MainWindow::invertImage()
 {
     qInfo() << "Inverting image";
-    loadedImage->invertPixels(QImage::InvertRgba);
+    loadedImage->invertPixels();
+    refreshImage();
 }

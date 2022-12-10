@@ -30,6 +30,7 @@ private:
     QVBoxLayout* centralLayout;
     qreal rotationAngle;
     void resizeEvent(QResizeEvent* event);
+    void refreshImage();
 
 signals:
     void windowResized();
