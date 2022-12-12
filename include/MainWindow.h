@@ -8,8 +8,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
-#define CLOCKWISE true
-#define COUNTERCLOCKWISE !CLOCKWISE
+#include <QSharedPointer>
+#include "ImageContainer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,22 +25,14 @@ public:
 
 private:
     Ui::MainWindow* ui;
-    QImage* loadedImage;
-    QLabel* lblImageContainer;
-    QVBoxLayout* centralLayout;
-    qreal rotationAngle;
-    bool flippedHorizontally, flippedVerically;
+    QSharedPointer<ImageContainer> imageContainer = QSharedPointer<ImageContainer>(new ImageContainer);
+    QSharedPointer<QVBoxLayout> centralLayout;
 
     void resizeEvent(QResizeEvent* event);
 
 signals:
     void windowResized();
-    void fileSelected();
 
 public slots:
     void showFileDialog();
-    void refreshImage();
-    void rotateImage(bool clockwise);
-    void flipImage(bool horizontally);
-    void invertImage();
 };
