@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget* parent)
     centralLayout->addWidget(imageContainer.get());
 
     QObject::connect(ui->actionAbout_Qt, &QAction::triggered, this, [this] { QMessageBox::aboutQt(this); }); // Show Qt about dialog
+    QObject::connect(ui->actionAbout_This_Software, &QAction::triggered, this, &MainWindow::showAboutDialog); // Show about dialog
     QObject::connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::showFileDialog); // Select image
 
     QObject::connect(this, &MainWindow::windowResized, imageContainer.get(), &ImageContainer::refreshImage); // Resize image when window is resized
@@ -48,4 +49,23 @@ void MainWindow::showFileDialog()
             QMessageBox::warning(this, "Image not supported", "Sorry, only grayscale images are supported.");
         }
     }
+}
+
+void MainWindow::showAboutDialog()
+{
+    QString title = "About this software";
+    QString content = "This is a project built using Qt6 for simple image manipulation.\n\
+        This project was meant to simply learn about using Qt framework and CMake.<br><br>";
+    QString credits = "<br><br>Credits to <a href='https://fontawesome.com/'>Font Awesome</a> and <a href='https://www.iconninja.com/avatar-ninja-samurai-warrior-icon-14586'>iconninja</a> their amazing icons.";
+    QIcon icon;
+    icon.addFile(":/resources/ninja.png");
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(title);
+    msgBox.setIcon(QMessageBox::Icon::Information);
+    msgBox.setWindowIcon(icon);
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText(content + "Checkout the <a href='https://github.com/shah253kt/qt-simple-image-manipulator'>project repository here</a>." + credits);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
 }

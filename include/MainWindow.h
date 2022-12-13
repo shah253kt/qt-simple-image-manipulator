@@ -35,4 +35,5 @@ signals:
 
 public slots:
     void showFileDialog();
+    void showAboutDialog();
 };
