@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/example-1-lazy-dog.png</file>
+        <file>resources/example-2-led-floodlight.png</file>
+        <file>resources/landscape.jpeg</file>
+        <file>resources/ninja.png</file>
+        <file>resources/ninja-grayscale-8-bit.png</file>
+        <file>resources/ninja-grayscale-8-bits.jpg</file>
+        <file>resources/ninja-grayscale-16-bit.png</file>
+        <file>resources/ninja-grayscale-16-bits.jpg</file>
+    </qresource>
+</RCC>

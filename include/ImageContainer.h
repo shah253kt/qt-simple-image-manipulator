@@ -32,7 +32,7 @@ public:
 
 public slots:
     void refreshImage();
-    void rotateImage(bool clockwise);
+    qreal rotateImage(bool clockwise);
     void flipImage(bool horizontally);
     void invertImage();
 };

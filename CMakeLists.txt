@@ -67,10 +67,15 @@ qt_add_executable(BasicImageManipulator WIN32 ${SOURCES})
 
 # Libraries linking
 target_link_libraries(BasicImageManipulator PRIVATE
-    Qt6::Core Qt6::Gui Qt6::Widgets
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
 )
 
 # Add the target includes for the project
 target_include_directories(BasicImageManipulator PRIVATE
-    ${INCLUDE_DIR}  ${SOURCE_DIR}  ${THEME_DIR}  ${UI_DIR}
+    ${INCLUDE_DIR}
+    ${SOURCE_DIR}
+    ${THEME_DIR}
+    ${UI_DIR}
 )

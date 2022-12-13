@@ -28,24 +28,26 @@ void ImageContainer::refreshImage()
 	this->setPixmap(QPixmap::fromImage(*image).transformed(QTransform().rotate(rotationAngle)).scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
-void ImageContainer::rotateImage(bool clockwise)
+qreal ImageContainer::rotateImage(bool clockwise)
 {
 	qInfo() << "Rotating image" << (clockwise == CLOCKWISE ? "Clockwise" : "Counter-clockwise");
 
 	rotationAngle += 90 * (clockwise ? 1 : -1);
 
-	if (rotationAngle > 360)
+	if (rotationAngle >= 360)
 		rotationAngle -= 360;
 	else if (rotationAngle < 0)
 		rotationAngle += 360;
 
 	refreshImage();
+	return rotationAngle;
 }
 
 void ImageContainer::flipImage(bool horizontally)
 {
+	bool isRotatedSideways = fabs(rotationAngle) == 90 || fabs(rotationAngle) == 270;
 	qInfo() << "Flipping image" << (horizontally ? "horizontally" : "vertically");
-	image->mirror(horizontally, !horizontally);
+	image->mirror(horizontally ^ isRotatedSideways, !horizontally ^ isRotatedSideways);
 	refreshImage();
 }
 
