@@ -1,38 +1,38 @@
 #pragma once
 
-#include <QDebug>
 #include <QLabel>
 #include <QImage>
-#include <QPixmap>
-#include <QSharedPointer>
 #include <QException>
 
-#define CLOCKWISE true
-#define COUNTERCLOCKWISE !CLOCKWISE
+class ImageLoadFailedException : public QException
+{
+public:
+    void raise() const override { throw* this; }
+    [[nodiscard]] ImageLoadFailedException* clone() const override { return new ImageLoadFailedException(*this); }
+};
 
 class ImageNotSupportedException : public QException
 {
 public:
     void raise() const override { throw* this; }
-    ImageNotSupportedException* clone() const override { return new ImageNotSupportedException(*this); }
+    [[nodiscard]] ImageNotSupportedException* clone() const override { return new ImageNotSupportedException(*this); }
 };
 
-class ImageContainer  : public QLabel
+class ImageContainer final : public QLabel
 {
 	Q_OBJECT
 
-private:
-	QSharedPointer<QImage> image = QSharedPointer<QImage>(new QImage);
-    qreal rotationAngle;
-
 public:
-	ImageContainer(QWidget *parent = nullptr);
-	~ImageContainer();
-    void loadImage(QString filename);
+	explicit ImageContainer(QWidget *parent = nullptr);
+	~ImageContainer() override = default;
+    void loadImage(const QString &filename);
+
+private:
+	QImage image;
 
 public slots:
     void refreshImage();
-    qreal rotateImage(bool clockwise);
+    void rotateImage(bool clockwise);
     void flipImage(bool horizontally);
     void invertImage();
 };
