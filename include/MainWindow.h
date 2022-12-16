@@ -1,30 +1,39 @@
 #pragma once
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QDir>
+#include <QStandardPaths>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QDebug>
+#include <QMessageBox>
+
+#include <QSharedPointer>
+#include "ImageContainer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class ImageContainer;
-
-class MainWindow final : public QMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget* parent = nullptr);
-    ~MainWindow() override;
+    MainWindow(QWidget* parent = nullptr);
+    ~MainWindow();
 
 private:
     Ui::MainWindow* ui;
-    ImageContainer *imageContainer;
+    QSharedPointer<ImageContainer> imageContainer = QSharedPointer<ImageContainer>(new ImageContainer);
+    QSharedPointer<QVBoxLayout> centralLayout;
 
-    void resizeEvent(QResizeEvent* event) override;
+    void resizeEvent(QResizeEvent* event);
 
 signals:
     void windowResized();
 
 public slots:
     void showFileDialog();
-    static void showAboutDialog();
+    void showAboutDialog();
 };
